@@ -10,17 +10,22 @@ void setup() {
   Serial.println( "XIAO round screen - LVGL_Arduino" );
 
   lv_init();
-  #if LVGL_VERSION_MAJOR == 9
-  lv_tick_set_cb(millis);
-  #endif
-    
   lv_xiao_disp_init();
   lv_xiao_touch_init();
   initializeDashboard();
 }
 
+static bool a = false;
 void loop() {
   // put your main code here, to run repeatedly:
   lv_timer_handler();  //let the GUI do its work 
   //delay( 5 );
+  if(a){
+    changeAgentStatus(0,false, "A");
+  }else{
+    changeAgentStatus(0,false, "B");
+  }
+  a = !a;
+  delay(500);
+  
 }

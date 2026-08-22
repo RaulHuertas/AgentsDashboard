@@ -13,4 +13,14 @@ enum DashboardStatusColor {
 void initializeDashboard();
 void setStatusCircleColor(uint8_t circle_index, DashboardStatusColor color);
 
+struct Agent{
+  bool working;
+  char name[8];
+  Agent();
+};
+
+void changeAgentStatus(int index, bool working, const char* newName);
+
+
+
 #endif //_AGENTS_DASHBOARD_H 
