@@ -24,6 +24,12 @@ static const lv_color_t STATUS_COLORS[NSTATUS] = {
     lv_color_hex(0x007BFF)  // Blue
 };
 
+static void statusCircleAnimExecCb(void * var, int32_t v) {
+    lv_obj_t * circle = (lv_obj_t *)var;
+    lv_obj_set_style_bg_opa(circle, (lv_opa_t)v, LV_PART_MAIN);
+    lv_obj_set_style_border_opa(circle, (lv_opa_t)v, LV_PART_MAIN);
+}
+
 void setStatusCircleColor(uint8_t circle_index, int color) {
     if (circle_index >= NSTATUS) {
         return;
@@ -33,6 +39,35 @@ void setStatusCircleColor(uint8_t circle_index, int color) {
     }
     lv_obj_set_style_bg_color(status_circles[circle_index], STATUS_COLORS[(int)color], LV_PART_MAIN);
     lv_obj_set_style_border_color(status_circles[circle_index], STATUS_COLORS[(int)color], LV_PART_MAIN);
+}
+
+void setStatusCircleAnimation(uint8_t circle_index, bool enable) {
+    if (circle_index >= NSTATUS) {
+        return;
+    }
+
+    lv_obj_t * circle = status_circles[circle_index];
+    if (circle == nullptr) {
+        return;
+    }
+
+    if (enable) {
+        lv_anim_del(circle, statusCircleAnimExecCb);
+
+        lv_anim_t anim;
+        lv_anim_init(&anim);
+        lv_anim_set_var(&anim, circle);
+        lv_anim_set_exec_cb(&anim, statusCircleAnimExecCb);
+        lv_anim_set_values(&anim, LV_OPA_40, LV_OPA_COVER);
+        lv_anim_set_time(&anim, 500);
+        lv_anim_set_playback_time(&anim, 500);
+        lv_anim_set_repeat_count(&anim, LV_ANIM_REPEAT_INFINITE);
+        lv_anim_start(&anim);
+    } else {
+        lv_anim_del(circle, statusCircleAnimExecCb);
+        lv_obj_set_style_bg_opa(circle, LV_OPA_COVER, LV_PART_MAIN);
+        lv_obj_set_style_border_opa(circle, LV_OPA_COVER, LV_PART_MAIN);
+    }
 }
 
 void initializeDashboard(){
@@ -79,9 +114,10 @@ void initializeDashboard(){
 }
 
 void changeAgentStatus(int index, bool working, const char* newName){
-    agents[0].working = working;
+    agents[index].working = working;
     strcpy(&(agents[index].name[0]),newName);
     lv_label_set_text(status_labels[index], agents[index].name);
+    setStatusCircleAnimation(index, working);
 }
 
 

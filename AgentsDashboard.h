@@ -12,6 +12,7 @@ enum DashboardStatusColor {
 
 void initializeDashboard();
 void setStatusCircleColor(uint8_t circle_index, DashboardStatusColor color);
+void setStatusCircleAnimation(uint8_t circle_index, bool enable);
 
 struct Agent{
   bool working;
