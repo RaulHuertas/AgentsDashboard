@@ -14,7 +14,10 @@ void setup() {
   lv_xiao_touch_init();
   initializeDashboard();
   setStatusCircleAnimation(3, true);
-  setStatusCircleLabel(2, "Nvim");
+  setStatusCircleLabel(0, "IntelliJ");
+  setStatusCircleLabel(1, "Nvim");
+  setStatusCircleLabel(2, "OpenCode");
+  setStatusCircleLabel(3, "VSCode");
 }
 
 static bool a = false;

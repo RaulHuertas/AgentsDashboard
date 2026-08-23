@@ -86,13 +86,14 @@ void setStatusCircleLabel(uint8_t circle_index, const char *text) {
     agents[circle_index].name[limitedLen] = 0;
 
     lv_label_set_text(status_labels[circle_index], agents[circle_index].name);
+    //lv_obj_set_style_text_color(status_labels[circle_index], lv_color_black(), LV_PART_MAIN);
 }
 
 void initializeDashboard(){
-    strcpy(&(agents[0].name[0]),"Tool1");
-    strcpy(&(agents[1].name[0]),"Tool2");
-    strcpy(&(agents[2].name[0]),"Tool3");
-    strcpy(&(agents[3].name[0]),"Tool4");
+    strcpy((agents[0].name),"T1");
+    strcpy((agents[1].name),"T2");
+    strcpy((agents[2].name),"T3");
+    strcpy((agents[3].name),"T4");
     //Draw the background
     lv_obj_set_style_bg_color(lv_scr_act(), lv_color_black(), LV_PART_MAIN);
     lv_obj_set_style_bg_opa(lv_scr_act(), LV_OPA_COVER, LV_PART_MAIN); 
@@ -109,7 +110,7 @@ void initializeDashboard(){
         LV_ALIGN_BOTTOM_RIGHT
     };
     const lv_coord_t distanceToBorder = 32;
-    const lv_coord_t diameter = 68;
+    const lv_coord_t diameter = 76;
     lv_coord_t offsets_x[NSTATUS] = {distanceToBorder, -distanceToBorder, distanceToBorder, -distanceToBorder};
     lv_coord_t offsets_y[NSTATUS] = {distanceToBorder, distanceToBorder, -distanceToBorder, -distanceToBorder};
 
@@ -119,13 +120,14 @@ void initializeDashboard(){
         lv_obj_set_style_radius(status_circles[i], LV_RADIUS_CIRCLE, LV_PART_MAIN);
         lv_obj_set_style_bg_opa(status_circles[i], LV_OPA_COVER, LV_PART_MAIN);
         lv_obj_set_style_bg_color(status_circles[i], STATUS_COLORS[i], LV_PART_MAIN);
-        lv_obj_set_style_border_width(status_circles[i], 2, LV_PART_MAIN);
-        lv_obj_set_style_border_color(status_circles[i], STATUS_COLORS[i], LV_PART_MAIN);
+        lv_obj_set_style_border_width(status_circles[i], 0, LV_PART_MAIN);
+        //lv_obj_set_style_border_color(status_circles[i], STATUS_COLORS[i], LV_PART_MAIN);
         lv_obj_align(status_circles[i], alignments[i], offsets_x[i], offsets_y[i]);
 
         status_labels[i] = lv_label_create(status_circles[i]);
         lv_label_set_text(status_labels[i], agents[i].name);
         lv_obj_set_style_text_color(status_labels[i], lv_color_black(), LV_PART_MAIN);
+        lv_obj_set_style_text_decor(status_labels[i], LV_TEXT_DECOR_NONE, LV_PART_MAIN);
         lv_obj_center(status_labels[i]);
     }
         
