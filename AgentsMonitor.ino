@@ -13,7 +13,7 @@ void setup() {
   lv_xiao_disp_init();
   lv_xiao_touch_init();
   initializeDashboard();
-  setStatusCircleAnimation(0, true);
+  setStatusCircleAnimation(3, true);
 
 }
 
