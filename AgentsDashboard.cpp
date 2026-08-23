@@ -5,8 +5,7 @@
 #include <string.h>
 #include "AgentsDashboard.h"
 
-const int NSTATUS = 4;
-const int MAX_AGENT_NAME = 12;
+
 
 Agent::Agent(){
     working = false;
@@ -81,15 +80,12 @@ void setStatusCircleLabel(uint8_t circle_index, const char *text) {
     if (text == nullptr) {
         text = "";
     }
+    int newLen = strlen(text);
+    int limitedLen = min(newLen,AGENTS_NAME_MAX_LEN);
+    strncpy(agents[circle_index].name, text, limitedLen);
+    agents[circle_index].name[limitedLen] = 0;
 
-    char limited[9];
-    strncpy(limited, text, 8);
-    limited[8] = '\0';
-
-    strncpy(agents[circle_index].name, limited, sizeof(agents[circle_index].name) - 1);
-    agents[circle_index].name[sizeof(agents[circle_index].name) - 1] = '\0';
-
-    lv_label_set_text(status_labels[circle_index], limited);
+    lv_label_set_text(status_labels[circle_index], agents[circle_index].name);
 }
 
 void initializeDashboard(){
