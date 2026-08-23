@@ -2,6 +2,7 @@
 
 #include <SD.h>
 #include <lvgl.h>
+#include <string.h>
 #include "AgentsDashboard.h"
 
 const int NSTATUS = 4;
@@ -70,6 +71,27 @@ void setStatusCircleAnimation(uint8_t circle_index, bool enable) {
     }
 }
 
+void setStatusCircleLabel(uint8_t circle_index, const char *text) {
+    if (circle_index >= NSTATUS) {
+        return;
+    }
+    if (status_labels[circle_index] == nullptr) {
+        return;
+    }
+    if (text == nullptr) {
+        text = "";
+    }
+
+    char limited[9];
+    strncpy(limited, text, 8);
+    limited[8] = '\0';
+
+    strncpy(agents[circle_index].name, limited, sizeof(agents[circle_index].name) - 1);
+    agents[circle_index].name[sizeof(agents[circle_index].name) - 1] = '\0';
+
+    lv_label_set_text(status_labels[circle_index], limited);
+}
+
 void initializeDashboard(){
     strcpy(&(agents[0].name[0]),"Tool1");
     strcpy(&(agents[1].name[0]),"Tool2");
@@ -115,8 +137,7 @@ void initializeDashboard(){
 
 void changeAgentStatus(int index, bool working, const char* newName){
     agents[index].working = working;
-    strcpy(&(agents[index].name[0]),newName);
-    lv_label_set_text(status_labels[index], agents[index].name);
+    setStatusCircleLabel((uint8_t)index, newName);
     setStatusCircleAnimation(index, working);
 }
 

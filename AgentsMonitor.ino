@@ -14,7 +14,7 @@ void setup() {
   lv_xiao_touch_init();
   initializeDashboard();
   setStatusCircleAnimation(3, true);
-
+  setStatusCircleLabel(3, "IntelliJ");
 }
 
 static bool a = false;

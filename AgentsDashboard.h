@@ -16,11 +16,12 @@ void setStatusCircleAnimation(uint8_t circle_index, bool enable);
 
 struct Agent{
   bool working;
-  char name[8];
+  char name[9];
   Agent();
 };
 
 void changeAgentStatus(int index, bool working, const char* newName);
+void setStatusCircleLabel(uint8_t circle_index, const char *text);
 
 
 
