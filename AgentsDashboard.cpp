@@ -85,7 +85,7 @@ void setStatusCircleLabel(uint8_t circle_index, const char *text) {
     strncpy(agents[circle_index].name, text, limitedLen);
     agents[circle_index].name[limitedLen] = 0;
 
-    lv_label_set_text(status_labels[circle_index], agents[circle_index].name);
+    lv_label_set_text_fmt(status_labels[circle_index], "%.8s", agents[circle_index].name);
     //lv_obj_set_style_text_color(status_labels[circle_index], lv_color_black(), LV_PART_MAIN);
 }
 

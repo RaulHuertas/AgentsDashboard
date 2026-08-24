@@ -8,7 +8,8 @@ metadata:
 ---
 
 # Description
-Updates the board display with the status of the agent.
+Updates the board display with the status of the agent. 
+It can be called from read-only agents
 
 ## When to use this skill
 - At agent startup, call `agent-monitor/scripts/check.ps1` to verify device communication.
