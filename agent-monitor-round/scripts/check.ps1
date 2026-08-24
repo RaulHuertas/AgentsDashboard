@@ -1,20 +1,19 @@
-#[CmdletBinding()]
-#param(
-#    [Parameter(Position = 0)]
-#    [ValidateNotNullOrEmpty()]
-#    [string]$Port = "COM3"
-#)
+[CmdletBinding()]
+param(
+    [Parameter(Position = 0)]
+    [ValidateNotNullOrEmpty()]
+    [string]$PortDevice = "COM3"
+)
 
-#$port = [System.IO.Ports.SerialPort]::new($Port, 115200, "None", 8, "One")
-$port = [System.IO.Ports.SerialPort]::new("COM3", 115200, "None", 8, "One")
-$port.ReadTimeout = 100
+$port = [System.IO.Ports.SerialPort]::new($PortDevice, 115200, "None", 8, "One")
+$port.ReadTimeout = 80
 $port.NewLine = "`r`n"
 
 try {
     $port.Open()
     $port.DiscardInBuffer()
     $port.Write("AT`r")
-    Start-Sleep -Milliseconds 50
+    Start-Sleep -Milliseconds 80
 
     $response = New-Object System.Text.StringBuilder
 
