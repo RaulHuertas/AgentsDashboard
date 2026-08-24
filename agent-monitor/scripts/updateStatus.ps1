@@ -15,7 +15,7 @@ param(
 
 $port = [System.IO.Ports.SerialPort]::new($PortDevice, 115200, "None", 8, "One")
 $port.ReadTimeout = 1000
-$port.WriteTimeout = 1000
+$port.WriteTimeout = 100
 
 try {
     $port.Open()
@@ -24,7 +24,7 @@ try {
     $command = "AT+PlaceAgentStatus=$IDEName,$Working`r"
     $port.Write($command)
 
-    Start-Sleep -Milliseconds 200
+    Start-Sleep -Milliseconds 100
 
     if ($port.BytesToRead -gt 0) {
         $response = $port.ReadExisting().Trim()
