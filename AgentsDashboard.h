@@ -22,6 +22,7 @@ struct Agent{
 };
 
 void changeAgentStatus(int index, bool working, const char* newName);
+bool updateOrPlaceAgentStatus(const char* name, bool working);
 void setStatusCircleLabel(uint8_t circle_index, const char *text);
 
 

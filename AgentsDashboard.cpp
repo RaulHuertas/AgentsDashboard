@@ -90,10 +90,9 @@ void setStatusCircleLabel(uint8_t circle_index, const char *text) {
 }
 
 void initializeDashboard(){
-    strcpy((agents[0].name),"");
-    strcpy((agents[1].name),"");
-    strcpy((agents[2].name),"");
-    strcpy((agents[3].name),"");
+    for (uint8_t i = 0; i < NSTATUS; i++) {
+        agents[i].name[0] = '\0';
+    }
     //Draw the background
     lv_obj_set_style_bg_color(lv_scr_act(), lv_color_black(), LV_PART_MAIN);
     lv_obj_set_style_bg_opa(lv_scr_act(), LV_OPA_COVER, LV_PART_MAIN); 
@@ -137,6 +136,31 @@ void changeAgentStatus(int index, bool working, const char* newName){
     agents[index].working = working;
     setStatusCircleLabel((uint8_t)index, newName);
     setStatusCircleAnimation(index, working);
+}
+
+bool updateOrPlaceAgentStatus(const char* name, bool working) {
+    if (name == nullptr || name[0] == '\0') {
+        return false;
+    }
+
+    for (uint8_t i = 0; i < NSTATUS; i++) {
+        if (strcmp(agents[i].name, name) == 0) {
+            agents[i].working = working;
+            setStatusCircleAnimation(i, working);
+            return true;
+        }
+    }
+
+    for (uint8_t i = 0; i < NSTATUS; i++) {
+        if (agents[i].name[0] == '\0') {
+            setStatusCircleLabel(i, name);
+            agents[i].working = working;
+            setStatusCircleAnimation(i, working);
+            return true;
+        }
+    }
+
+    return false;
 }
 
 
