@@ -1,3 +1,11 @@
+#[CmdletBinding()]
+#param(
+#    [Parameter(Position = 0)]
+#    [ValidateNotNullOrEmpty()]
+#    [string]$Port = "COM3"
+#)
+
+#$port = [System.IO.Ports.SerialPort]::new($Port, 115200, "None", 8, "One")
 $port = [System.IO.Ports.SerialPort]::new("COM3", 115200, "None", 8, "One")
 $port.ReadTimeout = 100
 $port.NewLine = "`r`n"
