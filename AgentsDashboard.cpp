@@ -143,16 +143,26 @@ bool updateOrPlaceAgentStatus(const char* name, bool working) {
         return false;
     }
 
+    //First search if the agent already exists
     for (uint8_t i = 0; i < NSTATUS; i++) {
-        if (strcmp(agents[i].name, name) == 0) {
+        if (strcmp(agents[i].name, name) == 0)   {
             agents[i].working = working;
             setStatusCircleAnimation(i, working);
             return true;
         }
     }
-
+    //Check if there is a free slot
     for (uint8_t i = 0; i < NSTATUS; i++) {
         if (agents[i].name[0] == '\0') {
+            setStatusCircleLabel(i, name);
+            agents[i].working = working;
+            setStatusCircleAnimation(i, working);
+            return true;
+        }
+    }
+    //Check if there is a free agent
+    for (uint8_t i = 0; i < NSTATUS; i++) {
+        if (!agents[i].working) {
             setStatusCircleLabel(i, name);
             agents[i].working = working;
             setStatusCircleAnimation(i, working);
