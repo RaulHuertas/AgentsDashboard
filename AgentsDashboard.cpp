@@ -90,10 +90,10 @@ void setStatusCircleLabel(uint8_t circle_index, const char *text) {
 }
 
 void initializeDashboard(){
-    strcpy((agents[0].name),"T1");
-    strcpy((agents[1].name),"T2");
-    strcpy((agents[2].name),"T3");
-    strcpy((agents[3].name),"T4");
+    strcpy((agents[0].name),"");
+    strcpy((agents[1].name),"");
+    strcpy((agents[2].name),"");
+    strcpy((agents[3].name),"");
     //Draw the background
     lv_obj_set_style_bg_color(lv_scr_act(), lv_color_black(), LV_PART_MAIN);
     lv_obj_set_style_bg_opa(lv_scr_act(), LV_OPA_COVER, LV_PART_MAIN); 
