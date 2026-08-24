@@ -14,7 +14,7 @@ void initializeDashboard();
 void setStatusCircleColor(uint8_t circle_index, DashboardStatusColor color);
 void setStatusCircleAnimation(uint8_t circle_index, bool enable);
 #define NSTATUS  4
-#define AGENTS_NAME_MAX_LEN 8
+#define AGENTS_NAME_MAX_LEN 32
 struct Agent{
   bool working;
   char name[AGENTS_NAME_MAX_LEN+1];
