@@ -10,8 +10,12 @@ param(
 
     [Parameter(Position = 2)]
     [ValidateNotNullOrEmpty()]
-    [string]$PortDevice = "COM3"
+    [string]$PortDevice = $null
 )
+
+if ([string]::IsNullOrWhiteSpace($PortDevice)) {
+    $PortDevice = (& "$PSScriptRoot\detectCOM2.ps1").Trim()
+}
 
 $port = [System.IO.Ports.SerialPort]::new($PortDevice, 115200, "None", 8, "One")
 $port.ReadTimeout = 1000
